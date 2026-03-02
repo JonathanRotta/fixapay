@@ -22,6 +22,7 @@ public class FuncionarioService {
     }
 
     public FuncionarioEntity criarFuncionario(FuncionarioEntity funcionario){
+
         if(funcionario.getNome() == null ||
            funcionario.getFuncao() == null ||
            funcionario.getTelefone() == null ||
@@ -29,6 +30,11 @@ public class FuncionarioService {
 
             throw new RuntimeException("Está faltando campos obrigatórios");
         }
+
+        if(funcionarioRepository.existsByNomeIgnoreCase(funcionario.getNome())){
+            throw new RuntimeException("Já existe um funcionário cadastrado com esse nome!");
+        }
+
         return funcionarioRepository.save(funcionario);
     }
 
@@ -45,5 +51,9 @@ public class FuncionarioService {
 
         return funcionarioRepository.save(funcionarioExistente);
 
+    }
+
+    public FuncionarioEntity deletarFuncionario(String nome){
+        return funcionarioRepository.deleteByNome(nome);
     }
 }

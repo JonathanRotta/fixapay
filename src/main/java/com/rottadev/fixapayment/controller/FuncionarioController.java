@@ -37,5 +37,11 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionarioAtualizado);
     }
 
+    @DeleteMapping
+    public ResponseEntity deletarFuncionario(@RequestParam String nome){
+        funcionarioService.deletarFuncionario(nome);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

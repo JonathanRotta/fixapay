@@ -1,0 +1,23 @@
+[33mcommit 007a0081da3e2d0ad94b73c260c74fb978ce8085[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Jonathan Rotta <jrotta19@gmail.com>
+Date:   Mon Mar 2 18:31:37 2026 -0300
+
+    feat: criando método put
+
+[33mcommit a99d110fbe8a8d3d7d1c3da9bf51b01d051097cf[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Jonathan Rotta <jrotta19@gmail.com>
+Date:   Thu Feb 26 23:35:11 2026 -0300
+
+    feat: estabelecer conexão entre backend e frontend
+
+[33mcommit 2711e0cd938c8c11686c03a98dd348854055e7b7[m
+Author: Jonathan Rotta <jrotta19@gmail.com>
+Date:   Thu Feb 26 22:49:32 2026 -0300
+
+    feat: criando controllers e metodo post
+
+[33mcommit 125547f1b052559cf178115456b869f7bdd4b6ae[m
+Author: Jonathan Rotta <jrotta19@gmail.com>
+Date:   Thu Feb 26 21:22:13 2026 -0300
+
+    feat: implementar entidade e repository
