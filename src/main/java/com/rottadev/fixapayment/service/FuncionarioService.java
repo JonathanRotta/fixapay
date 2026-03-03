@@ -4,6 +4,8 @@ import com.rottadev.fixapayment.entities.FuncionarioEntity;
 import com.rottadev.fixapayment.exception.NegocioException;
 import com.rottadev.fixapayment.repository.FuncionarioRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class FuncionarioService {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    public List<FuncionarioEntity> buscarFuncionario(){
-        return funcionarioRepository.findAll();
+    public Page<FuncionarioEntity> buscarFuncionario(Pageable pageable){
+        return funcionarioRepository.findAll(pageable);
     }
 
     public FuncionarioEntity criarFuncionario(FuncionarioEntity funcionario){
