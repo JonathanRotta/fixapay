@@ -30,6 +30,14 @@ public class FuncionarioEntity {
     @Column(name = "valor_diaria")
     private BigDecimal valorDiaria;
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
