@@ -1,6 +1,7 @@
 package com.rottadev.fixapayment.service;
 
 import com.rottadev.fixapayment.entities.FuncionarioEntity;
+import com.rottadev.fixapayment.exception.NegocioException;
 import com.rottadev.fixapayment.repository.FuncionarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,11 @@ public class FuncionarioService {
            funcionario.getTelefone() == null ||
            funcionario.getValorDiaria() == null){
 
-            throw new RuntimeException("Está faltando campos obrigatórios");
+            throw new NegocioException("Está faltando campos obrigatórios");
         }
 
         if(funcionarioRepository.existsByNomeIgnoreCase(funcionario.getNome())){
-            throw new RuntimeException("Já existe um funcionário cadastrado com esse nome!");
+            throw new NegocioException("Já existe um funcionário cadastrado com esse nome!");
         }
 
         return funcionarioRepository.save(funcionario);
@@ -48,12 +49,17 @@ public class FuncionarioService {
         funcionarioExistente.setTelefone(funcionario.getTelefone());
         funcionarioExistente.setValorDiaria(funcionario.getValorDiaria());
 
-
         return funcionarioRepository.save(funcionarioExistente);
 
     }
 
     public FuncionarioEntity deletarFuncionario(String nome){
-        return funcionarioRepository.deleteByNome(nome);
+
+        if(funcionarioRepository.existsByNomeIgnoreCase(nome)){
+            return funcionarioRepository.deleteByNome(nome);
+        }
+
+        throw new NegocioException("Esse funcionário não existe");
+
     }
 }
