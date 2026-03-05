@@ -1,20 +1,13 @@
 package com.rottadev.fixapayment.service;
 
-
 import com.rottadev.fixapayment.entities.ConsumacaoEntity;
 import com.rottadev.fixapayment.entities.FuncionarioEntity;
 import com.rottadev.fixapayment.exception.NegocioException;
 import com.rottadev.fixapayment.repository.ConsumacaoRepository;
 import com.rottadev.fixapayment.repository.FuncionarioRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -39,7 +32,7 @@ public class ConsumacaoService {
 
 
         return listaConsumacao;
-    } 
+    }
 
     @Transactional
     public ConsumacaoEntity criarConsumacao(ConsumacaoEntity consumacao){
@@ -50,5 +43,17 @@ public class ConsumacaoService {
 
         return consumacaoRepository.save(consumacao);
 
+    }
+
+    public ConsumacaoEntity alterarStatus(Long id, String status){
+        ConsumacaoEntity consumacao = consumacaoRepository.findById(id)
+                .orElseThrow(() -> new NegocioException("Essa consumação não existe"));
+
+        if ("pago".equalsIgnoreCase(status)) {
+            throw new NegocioException("Essa consumação ja foi paga!");
+        }
+        consumacao.setStatus(status);
+
+        return consumacaoRepository.save(consumacao);
     }
 }

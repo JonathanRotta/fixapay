@@ -1,10 +1,8 @@
 package com.rottadev.fixapayment.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -21,11 +19,20 @@ public class ConsumacaoEntity {
     private Date data;
     private String item;
     private BigDecimal valor;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
     private FuncionarioEntity funcionario;
 
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
