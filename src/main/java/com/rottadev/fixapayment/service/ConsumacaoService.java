@@ -2,9 +2,11 @@ package com.rottadev.fixapayment.service;
 
 import com.rottadev.fixapayment.entities.ConsumacaoEntity;
 import com.rottadev.fixapayment.entities.FuncionarioEntity;
+import com.rottadev.fixapayment.entities.PagamentoEntity;
 import com.rottadev.fixapayment.exception.NegocioException;
 import com.rottadev.fixapayment.repository.ConsumacaoRepository;
 import com.rottadev.fixapayment.repository.FuncionarioRepository;
+import com.rottadev.fixapayment.repository.PagamentoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -15,10 +17,13 @@ public class ConsumacaoService {
 
     private final ConsumacaoRepository consumacaoRepository;
     private final FuncionarioRepository funcionarioRepository;
-
-    public ConsumacaoService(ConsumacaoRepository consumacaoRepository, FuncionarioRepository funcionarioRepository){
+    private final PagamentoRepository pagamentoRepository;
+    public ConsumacaoService(ConsumacaoRepository consumacaoRepository,
+                             FuncionarioRepository funcionarioRepository,
+                             PagamentoRepository pagamentoRepository){
         this.consumacaoRepository = consumacaoRepository;
         this.funcionarioRepository = funcionarioRepository;
+        this.pagamentoRepository = pagamentoRepository;
     }
 
     public List<ConsumacaoEntity> buscarConsumacoes(){
@@ -56,4 +61,15 @@ public class ConsumacaoService {
 
         return consumacaoRepository.save(consumacao);
     }
+
+    public ConsumacaoEntity registrarPagamento (Long idConsumacao, Long idPagamento){
+        ConsumacaoEntity consumacao = consumacaoRepository.findById(idConsumacao)
+                .orElseThrow(() -> new NegocioException("Essa consumação não existe."));
+        PagamentoEntity pagamento = pagamentoRepository.findById(idPagamento)
+                .orElseThrow(() -> new NegocioException("Esse pagamento não existe."));
+
+        consumacao.setPagamento(pagamento);
+        return consumacaoRepository.save(consumacao);
+    }
+
 }

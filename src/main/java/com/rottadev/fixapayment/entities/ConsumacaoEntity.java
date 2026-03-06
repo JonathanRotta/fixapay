@@ -25,6 +25,9 @@ public class ConsumacaoEntity {
     @JoinColumn(name = "funcionario_id")
     private FuncionarioEntity funcionario;
 
+    @ManyToOne
+    @JoinColumn(name = "pagamento_id")
+    private PagamentoEntity pagamento;
 
     public String getStatus() {
         return status;
@@ -72,5 +75,13 @@ public class ConsumacaoEntity {
 
     public void setFuncionario(FuncionarioEntity funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public PagamentoEntity getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(PagamentoEntity pagamento) {
+        this.pagamento = pagamento;
     }
 }
